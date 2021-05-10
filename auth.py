@@ -11,7 +11,13 @@ try:
         print("Connecteds")
     db_info = connection.get_server_info()
     print(db_info)
-
+    email = "ethan.ye0312@gmail.com" # temporary email
+    select_user = "SELECT * FROM users WHERE email in ('" + str(email)+"')"
+    print(select_user)
+    cursor = connection.cursor()
+    cursor.execute(select_user)
+    row = cursor.fetchone()
+    print(row)
 
 except Exception as e:
     print("Error while connecting to MySQL database", e)
@@ -25,7 +31,7 @@ print("Hello World")
 
 # Select query for user
 # email = "alksjlkasjd@hotmail.com" # temporary email
-# select_user = "SELECT * FROM users WHERE email in (" + str(email)+")"
+# select_user = "SELECT * FROM users WHERE email in ('" + str(email)+"')"
 # print(select_user)
 # cursor = connection.cursor()
 # cursor.execute(select_user)
