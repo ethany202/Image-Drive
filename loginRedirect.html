@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Image Drive</title>
+    <script src="homeScript.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link href="format.css" rel="stylesheet" type="text/css"/>
+    <script>
+        var homeButton = document.getElementById("home-button");
+
+        function returnHome(){
+            window.location.href = "home.html";
+        }
+    </script>
+    <style>
+        #login-div{
+            text-align: center;
+            margin: 5%;
+            padding: 2%;
+            font-family: 'Open Sans';
+            font-size: 1.25vw;
+        }
+
+        #login-div label{
+            font-size: 1.45vw;
+        }
+
+        .input-field{
+            padding: 0.25%;
+            font-size: 0.96vw;
+            margin: 1.2%;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="home-button-div">
+        <section>
+            <button id="home-button" onclick="returnHome()">
+                HOME
+            </button>
+        </section>
+    </div>
+
+    <div id="top-section">
+        <h3>
+            Login
+        </h3>
+    </div>
+
+    <div id="login-div">
+        <form id = "login-form">
+            <label for="email">Email: </label><br>
+            <input type="text" id="email" class = "input-field"><br><br>
+            <label for="password">Password: </label><br>
+            <input type = "text" id="password" class="input-field">
+        </form>
+    </div>
+</body>
+</html>

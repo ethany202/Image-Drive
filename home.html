@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Drive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <script src="homeScript.js"></script>
+    <style>
+        #top-div{
+            text-align: center;
+            margin: 12.5% 5% 5% 5%;
+            font-size: 3.5vw;
+            letter-spacing: 0.25vw;
+            font-family: 'Open Sans';
+            font-weight: bold;
+            transform: scaleY(1.05);
+        }
+
+        #button-div{
+            text-align: center;
+        }
+
+        .home-buttons{           
+            text-align: center;
+            border: 0.08vw solid black;
+            padding: 0.75% 2% 0.75% 2%;
+            margin: 1%;
+            letter-spacing: 0.15vw;
+            font-family: 'Open Sans';
+            font-size: 1vw;
+            font-weight: bold;
+            background-color: white;
+        }
+
+        .home-buttons:hover{
+            color: white;
+            background-color: black;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="top-div">
+        IMAGE &nbspDRIVE
+
+    </div>
+
+    <div id="button-div">
+        <button id="login-button" class = "home-buttons" onclick="login()">
+            Login
+        </button>
+        <br>
+        <button id="sign-up-button" class="home-buttons" onclick="signup()">
+            Sign Up
+        </button>
+    </div>
+
+</body>
+</html>
