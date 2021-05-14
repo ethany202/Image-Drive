@@ -1,0 +1,42 @@
+#top-section{
+    text-align: center;
+    margin: 2%;
+    font-size: 2.25vw;
+    font-family: 'Open Sans';
+    letter-spacing: 0.45vw;
+}
+
+.credentials-div{
+    text-align: center;
+    margin: 2%;
+    padding: 2%;
+    font-family: 'Open Sans';
+    font-size: 1.15vw;
+}
+
+.credentials label{
+    font-size: 1vw;
+}
+
+.input-field{
+    padding: 0.25%;
+    font-size: 0.75vw;
+    margin: 1.25% 2.5%;
+}
+
+.submit-button{
+    border: 0.01vw solid dodgerblue;
+    padding: 0.85% 1%;
+    margin: 2.95%;
+    font-size: 0.9vw;
+    letter-spacing: 0.125vw;
+    font-family: 'Open Sans';
+    font-weight: bold;
+    color: dodgerblue;
+    background-color: white;
+}
+
+.submit-button:hover{
+    background-color: dodgerblue;
+    color: white;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="{{ url_for('static', filename='js/index.js')}}"></script>
+    <style>
+      #navigation-bar{
+        margin: -0.4%;
+        padding: 1.1%;
+        background-color:rgba(168, 21, 21, 0.911);
+      }
+
+      #navigation-text{
+        font-size: 1.35vw;
+        letter-spacing: 0.07vw;
+        color: white;
+        background-color: rgba(168, 21, 21, 0);
+        border: none;
+        font-family: 'Open Sans';
+        font-weight: bold;
+        margin: 0.08% 1%;
+      }
+
+      .nav-button{
+        padding: 0.3% 0.4%;
+        margin: 0.05% 0.8%;
+        font-size: 0.84vw;
+        font-family: 'Open Sans';
+        letter-spacing: 0.1vw;
+        transition: all .2s ease-in-out;
+        color: white;
+        background-color: rgba(168, 21, 21, 0);
+        border: none;
+        font-family: 'Open Sans';
+        font-weight: bold;
+      }
+
+      .nav-button:hover{
+        transform: scale(1.25);
+        color:rgba(168, 21, 21, 0.911);
+        background-color: white;
+        cursor: pointer;
+      }
+    </style>
+    {% block style %}{% endblock %}
+</head>
+<body>
+    <div id="navigation-bar">
+      <header>
+        <nav id="navbar">
+          <button id="navigation-text">Navigation</button>
+          <button id="home-button" class = "nav-button" onclick="home()">
+            Home
+          </button>
+          <button id="login-button" class="nav-button" onclick="login()">
+            Login
+          </button>
+          <button id="sign-up-button" class="nav-button" onclick = "signup()">
+            Sign Up
+          </button>
+        </nav>  
+      </header>
+    </div>
+    {% block content %}{% endblock %}
+</body>
+</html>

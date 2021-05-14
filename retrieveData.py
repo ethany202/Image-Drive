@@ -1,0 +1,78 @@
+import mysql.connector
+
+# Database Info
+host = 'frwahxxknm9kwy6c.cbetxkdyhwsb.us-east-1.rds.amazonaws.com'
+database = 'wtqgvyiyb93cocs8'
+username = 'rw7p0k9xiegjz0sh'
+password = 'ixdqgdfr7cwqyxss'
+
+# global variables
+current_user_info = []
+
+#initiate connection between python and MySQL
+def connect():
+    try:
+        connection = mysql.connector.connect(host=host, database=database, user=username, password=password)
+        if connection.is_connected():
+            return connection
+    except Exception as e:
+        print("Error while connecting to MySQL database", e)
+    return None
+
+
+# close connection to MySQL database
+def close_connection(connection):
+    if connection.is_connected():
+        connection.close()
+
+
+# check if user with email and password exist
+def check_records(email, password, connection):
+    try:
+        find_user = "SELECT * FROM users WHERE email IN ('" +str(email)+"')"
+        cursor = connection.cursor()
+        cursor.execute(find_user)
+        row = cursor.fetchone()
+        row_list = list(row)
+        cursor.close()
+        if(len(row_list)!=0):
+            #current_user_info = row_list
+            #return True
+            return row_list
+    except Exception as e:
+        print("Error while retrieving user info", e)
+    return []
+
+
+# check if the email and password passed match
+def verify_credentials(email, password, connection):
+    try:
+        find_user = "SELECT * FROM users WHERE email = '"+str(email)+"'"
+        cursor = connection.cursor()
+        cursor.execute(find_user)
+        row = cursor.fetchone()
+        row_list = list(row)
+        cursor.close()
+        print(row_list)
+        if(len(row_list)!=0):
+            if(row_list[1]==password):
+                #print(row_list)
+                #current_user_info = row_list
+                return row_list
+    except Exception as e:
+        print("Error while retrieving user info", e)
+    #return False
+    return []
+
+
+# Add user data to a database
+def add_user(first_name, last_name, email, password, connection):
+    try:
+        stmt = "INSERT INTO users VALUES (%s, %s, %s, %s)"
+        val = (str(email), str(password), str(first_name), str(last_name))
+        cursor = connection.cursor()
+        cursor.execute(stmt, val)
+        connection.commit()
+        cursor.close()
+    except Exception as e:
+        print("Failed to enter in user", e)
