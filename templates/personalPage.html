@@ -1,18 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Home Page | Image Drive</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{%block title%} Personal Page | Home Drive {%endblock%}
+
+{% block style %}
+    <style>
+        #title-div{
+            text-align: center;
+            margin: 1.5%;
+            font-family: 'Open Sans';
+            font-size: 1.75vw;
+            letter-spacing: 0.08vw;
+            padding: 1.75%;
+            color: black;
+            font-weight: bold;
+        }
+
+        #options{
+            text-align: center;
+            margin: 1.5%;
+        }
+
+        #options button{
+            padding: 0.45% 0.85%;
+            margin: 1%;
+            font-size: 0.85vw;
+            background-color: white;
+            border: 0.06vw solid dodgerblue;
+            color: dodgerblue;
+            font-family: 'Kelly Slab';
+            letter-spacing: 0.1vw;
+        }
+    </style>
+{%endblock%}
+
+{% block content%}
     <div id = "title-div">
-        Image Drive<br>Personal Page
+        <h2>Personal Home</h2>
     </div>
-
-    <div class="images">
-
+    <div id="options">
+        <button id="load-images">Load</button>
+        <button id="upload-images">Upload</button>
     </div>
-</body>
-</html>
+{%endblock%}

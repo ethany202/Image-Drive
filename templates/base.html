@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
     <title>{% block title %}{% endblock %}</title>
     <script src="{{ url_for('static', filename='js/index.js')}}"></script>
     <style>
@@ -46,6 +47,19 @@
         background-color: white;
         cursor: pointer;
       }
+
+      #current-user-text{
+        border: none;
+        border-left: 0.15vw solid white;
+        font-size: 0.84vw;
+        letter-spacing: 0.07vw;
+        color: white;
+        background-color: rgba(168, 21, 21, 0);
+        font-family: 'Open Sans';
+        font-weight: bold;
+        text-align: right;
+      }
+
     </style>
     {% block style %}{% endblock %}
 </head>
@@ -53,7 +67,7 @@
     <div id="navigation-bar">
       <header>
         <nav id="navbar">
-          <button id="navigation-text">Navigation</button>
+          <button id="navigation-text" class="fake-button">Navigation</button>
           <button id="home-button" class = "nav-button" onclick="home()">
             Home
           </button>
@@ -63,6 +77,13 @@
           <button id="sign-up-button" class="nav-button" onclick = "signup()">
             Sign Up
           </button>
+          <!-- <div class="dropdown"> -->
+            <button id="current-user-text"class="fake-button">&nbsp;&nbsp;&nbsp;{{name}}</button>
+            <!-- <div id="drop-content">
+              <a href = "personalPage.html">Personal Home</a>
+              <a href = "sign-out">Sign Out</a>
+            </div> -->
+          <!-- </div> -->
         </nav>  
       </header>
     </div>

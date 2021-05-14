@@ -6,9 +6,6 @@ database = 'wtqgvyiyb93cocs8'
 username = 'rw7p0k9xiegjz0sh'
 password = 'ixdqgdfr7cwqyxss'
 
-# global variables
-current_user_info = []
-
 #initiate connection between python and MySQL
 def connect():
     try:
@@ -36,8 +33,6 @@ def check_records(email, password, connection):
         row_list = list(row)
         cursor.close()
         if(len(row_list)!=0):
-            #current_user_info = row_list
-            #return True
             return row_list
     except Exception as e:
         print("Error while retrieving user info", e)
@@ -56,12 +51,9 @@ def verify_credentials(email, password, connection):
         print(row_list)
         if(len(row_list)!=0):
             if(row_list[1]==password):
-                #print(row_list)
-                #current_user_info = row_list
                 return row_list
     except Exception as e:
         print("Error while retrieving user info", e)
-    #return False
     return []
 
 

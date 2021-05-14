@@ -1,24 +1,29 @@
 from flask import Flask, redirect, url_for, render_template, request
-from sites import sites
+import sites
 import retrieveData
 
 
 def create_app():
     app = Flask(__name__)
     app.config["SECRET_KEY"] = "ved"
-    app.register_blueprint(sites, url_prefix='/')
     return app
 
 
 app = create_app()
-current_user_data = []
 
+
+@app.route('/home')
+def home():
+    if sites.authenticated:
+        return render_template("home.html", name = sites.current_user_data[0])
+    else:
+        return render_template("home.html", name="Not Logged In")
 
 
 @app.route("/email=<email>")
 def redirectToPersonal(email):
     if sites.authenticated:
-        return render_template("personalPage.html")
+        return render_template("personalPage.html", name=sites.current_user_data[0])
     else:
         return redirect(url_for("loginPage"))
 
@@ -26,6 +31,10 @@ def redirectToPersonal(email):
 
 @app.route("/login", methods=['POST', 'GET'])
 def loginPage():
+    if sites.authenticated:
+        current_user = sites.current_user_data[0]
+    else:
+        current_user = "Not Logged In"
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
@@ -36,19 +45,23 @@ def loginPage():
                 print("Incorrect credentials")
                 sites.authenticated = False
                 retrieveData.close_connection(conn)
-                return render_template("loginRedirect.html")
-                # print error message
+                return render_template("loginRedirect.html", name=current_user, error="Error logging in: Username or password is invalid")
             else:
+                sites.current_user_data = user_data
                 sites.authenticated = True
                 print("Logged In...")
                 retrieveData.close_connection(conn)
-                return redirect(url_for("redirectToPersonal", email=user_data[0]))
-    return render_template("loginRedirect.html")
+                return redirect(url_for("redirectToPersonal", email=user_data[0], name=current_user))
+    return render_template("loginRedirect.html", name=current_user)
 
 
 
 @app.route("/sign-up", methods =["POST", "GET"])
 def signupPage():
+    if sites.authenticated:
+        current_user = sites.current_user_data[0]
+    else:
+        current_user = "Not Logged In"
     if request.method == "POST":
         first_name = request.form.get("firstName")
         last_name = request.form.get("lastName")
@@ -63,10 +76,16 @@ def signupPage():
             else:
                 sites.authenticated = True
                 print("New account has been made")
-                return redirect(url_for("redirectToPersonal", email=user_data[0]))
+                sites.current_user_data = user_data
+                return redirect(url_for("redirectToPersonal", email=user_data[0], name=current_user))
         retrieveData.close_connection(conn)   
-    return render_template("signupRedirect.html")
+    return render_template("signupRedirect.html", name=current_user)
 
+
+@app.route("/sign-out")
+def signoutRedirect():
+    sites.authenticated = False
+    return redirect(url_for("home", name="Not Logged In"))
 
 
 if __name__ == "__main__":

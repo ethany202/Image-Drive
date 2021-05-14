@@ -1,29 +1,57 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up | Image Drive</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/format.css') }}">
-    <script>
-        var homeButton = document.getElementById("home-button");
+{% extends "base.html" %}
+{% block title %} Sign Up | Image Drive {%endblock%}
 
-        function returnHome(){
-            window.location.href = "home";
-        }
-    </script>
-</head>
-<body>
-    <div id="home-button-div">
-        <section>
-            <button id="home-button" onclick="returnHome()">
-                HOME
-            </button>
-        </section>
-    </div>
+{% block style %}
+    <style>
+    #top-section{
+        text-align: center;
+        margin: 4%;
+        font-size: 2.25vw;
+        font-family: 'Open Sans';
+        letter-spacing: 0.45vw;
+    }
 
+    .credentials-div{
+        text-align: center;
+        margin: 2%;
+        padding: 2%;
+        font-family: 'Open Sans';
+        font-size: 1.15vw;
+    }
+
+    .input-field{
+        padding: 0.25%;
+        font-size: 0.9vw;
+        margin: 1.25% 2.5%;
+        width: 25%;
+        border: 0.08vw solid;
+        box-sizing: border-box;
+    }
+
+    .submit-button{
+        border: 0.01vw solid dodgerblue;
+        padding: 0.85% 1%;
+        margin: 2.95%;
+        font-size: 0.9vw;
+        letter-spacing: 0.125vw;
+        font-family: 'Open Sans';
+        font-weight: bold;
+        color: dodgerblue;
+        background-color: white;
+    }
+
+    .submit-button:hover{
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    ::placeholder{
+        font-family: 'Open Sans';
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
     <div id="top-section">
         <h3>
             Sign Up
@@ -32,87 +60,13 @@
 
     <div id="signup-div" class="credentials-div">
         <form id = "signup-form" class="credentials" method="POST">
-            <label for="first-name">First Name:</label>
-            <input type="text" id="first-name" name="firstName" class="input-field"><br>
-            <label for="last-name">Last Name:</label>
-            <input type="text" id="last-name" name = "lastName" class="input-field"><br>
-            <label for="email">Email: </label>
-            <input type="text" id="email" name="email" class = "input-field"><br>
-            <label for="password">Password: </label>
-            <input type = "text" id="password" name="password" class="input-field"><br>
+            <input type="text" id="first-name" name="firstName" class="input-field" placeholder="First Name"><br>
+            <input type="text" id="last-name" name = "lastName" class="input-field" placeholder="Last Name"><br>
+            <input type="text" id="email" name="email" class = "input-field" placeholder = "Email"><br>
+            <input type = "password" id="password" name="password" class="input-field" placeholder = "Password"><br>
             <button class="submit-button"> Submit </button>
         </form>
     </div>
-</body>
-</html> -->
-{% extends "base.html" %}
-{% block title %} Sign Up | Image Drive {%endblock%}
-
-{% block style %}
-<style>
-#top-section{
-    text-align: center;
-    margin: 2%;
-    font-size: 2.25vw;
-    font-family: 'Open Sans';
-    letter-spacing: 0.45vw;
-}
-
-.credentials-div{
-    text-align: center;
-    margin: 2%;
-    padding: 2%;
-    font-family: 'Open Sans';
-    font-size: 1.15vw;
-}
-
-.credentials label{
-    font-size: 1vw;
-}
-
-.input-field{
-    padding: 0.25%;
-    font-size: 0.75vw;
-    margin: 1.25% 2.5%;
-}
-
-.submit-button{
-    border: 0.01vw solid dodgerblue;
-    padding: 0.85% 1%;
-    margin: 2.95%;
-    font-size: 0.9vw;
-    letter-spacing: 0.125vw;
-    font-family: 'Open Sans';
-    font-weight: bold;
-    color: dodgerblue;
-    background-color: white;
-}
-
-.submit-button:hover{
-    background-color: dodgerblue;
-    color: white;
-}
-</style>
-{% endblock %}
-
-{% block content %}
-<div id="top-section">
-    <h3>
-        Sign Up
-    </h3>
-</div>
-
-<div id="signup-div" class="credentials-div">
-    <form id = "signup-form" class="credentials" method="POST">
-        <label for="first-name">First Name:</label>
-        <input type="text" id="first-name" name="firstName" class="input-field"><br>
-        <label for="last-name">Last Name:</label>
-        <input type="text" id="last-name" name = "lastName" class="input-field"><br>
-        <label for="email">Email: </label>
-        <input type="text" id="email" name="email" class = "input-field"><br>
-        <label for="password">Password: </label>
-        <input type = "text" id="password" name="password" class="input-field"><br>
-        <button class="submit-button"> Submit </button>
-    </form>
-</div>
 {%endblock%}
+
+{{error}}
