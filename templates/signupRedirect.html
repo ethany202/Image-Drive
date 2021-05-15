@@ -3,51 +3,66 @@
 
 {% block style %}
     <style>
-    #top-section{
-        text-align: center;
-        margin: 4%;
-        font-size: 2.25vw;
-        font-family: 'Open Sans';
-        letter-spacing: 0.45vw;
-    }
+        #top-section{
+            border-top: 0.15vw solid white;
+            text-align: center;
+            margin: 0.4% -0.4%;
+            font-size: 2.25vw;
+            font-family: 'Open Sans';
+            letter-spacing: 0.45vw;
+            background-color: rgba(6, 6, 73, 0.795);
+            color: white;
+            padding: 1.25%;
+        }
+        
+        .credentials-div{
+            text-align: center;
+            margin: 0.5%;
+            padding: 2%;
+            font-family: 'Open Sans';
+            font-size: 1.15vw;
+        }
+        
+        .input-field{
+            padding: 0.35%;
+            font-size: 1vw;
+            margin: 1.25% 2.5%;
+            width: 25%;
+            border: 0.15vw solid rgba(168, 21, 21, 0.911);
+            box-sizing: border-box;
+        }
+        
+        .submit-button{
+            border: 0.01vw solid dodgerblue;
+            padding: 0.6% 0.8%;
+            margin: 2%;
+            font-size: 0.75vw;
+            letter-spacing: 0.125vw;
+            font-family: 'Open Sans';
+            font-weight: bold;
+            color: dodgerblue;
+            background-color: white;
+        }
+        
+        .submit-button:hover{
+            background-color: dodgerblue;
+            color: white;
+            cursor: pointer;
+        }
 
-    .credentials-div{
-        text-align: center;
-        margin: 2%;
-        padding: 2%;
-        font-family: 'Open Sans';
-        font-size: 1.15vw;
-    }
+        ::placeholder{
+            font-family: 'Open Sans';
+        }
 
-    .input-field{
-        padding: 0.25%;
-        font-size: 0.9vw;
-        margin: 1.25% 2.5%;
-        width: 25%;
-        border: 0.08vw solid;
-        box-sizing: border-box;
-    }
-
-    .submit-button{
-        border: 0.01vw solid dodgerblue;
-        padding: 0.85% 1%;
-        margin: 2.95%;
-        font-size: 0.9vw;
-        letter-spacing: 0.125vw;
-        font-family: 'Open Sans';
-        font-weight: bold;
-        color: dodgerblue;
-        background-color: white;
-    }
-
-    .submit-button:hover{
-        background-color: dodgerblue;
-        color: white;
-    }
-
-    ::placeholder{
-        font-family: 'Open Sans';
-    }
+        #error{
+            text-align: center;
+            font-family: 'Kelly Slab';
+            text-transform: uppercase;
+            letter-spacing: 0.12vw;
+            font-size: 0.8vw;
+            margin-top: -0.9%;
+            margin-bottom: 4%;
+        }
     </style>
 {% endblock %}
 
@@ -64,9 +79,13 @@
             <input type="text" id="last-name" name = "lastName" class="input-field" placeholder="Last Name"><br>
             <input type="text" id="email" name="email" class = "input-field" placeholder = "Email"><br>
             <input type = "password" id="password" name="password" class="input-field" placeholder = "Password"><br>
+            <input type = "password" id="password-confirm" name="passwordConfirm" class="input-field" placeholder = "Password (Confirm)"><br>
             <button class="submit-button"> Submit </button>
         </form>
     </div>
+
+    <div id="error">
+        {{error}}
+    </div>
 {%endblock%}
 
-{{error}}

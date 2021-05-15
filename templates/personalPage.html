@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
-{%block title%} Personal Page | Home Drive {%endblock%}
+{%block title%} Personal Drive | Image Drive {%endblock%}
+{%block script%}<script src="{{ url_for('static', filename='js/personal.js')}}"></script>{%endblock%}
+
 
 {% block style %}
     <style>
@@ -30,6 +32,12 @@
             font-family: 'Kelly Slab';
             letter-spacing: 0.1vw;
         }
+
+        #options button:hover{
+            background-color: dodgerblue;
+            color:white;
+            cursor: pointer;
+        }
     </style>
 {%endblock%}
 
@@ -38,7 +46,9 @@
         <h2>Personal Home</h2>
     </div>
     <div id="options">
-        <button id="load-images">Load</button>
-        <button id="upload-images">Upload</button>
+        <p>
+            <button id="load-images-button" onclick="loadImagesSite()">Load Images</button>
+            <button id="upload-images-button" onclick="uploadImagesSite()"> Upload Images</button>
+        </p>
     </div>
 {%endblock%}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Stored Images | Image Drive{% endblock%}
+
+{% block style%}
+    <style>
+        #top-section{
+            border-top: 0.15vw solid white;
+            text-align: center;
+            margin: 0.4% -0.4%;
+            font-size: 2.25vw;
+            font-family: 'Open Sans';
+            letter-spacing: 0.45vw;
+            background-color: rgba(6, 6, 73, 0.795);
+            color: white;
+            padding: 1.25%;
+        }
+    </style>
+{% endblock %}
+
+{% block content%}
+    <div id = "top-section">
+        <h2>Stored Images</h2>
+    </div>
+    <div id="images">
+
+    </div>
+{%endblock%}

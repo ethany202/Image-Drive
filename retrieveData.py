@@ -68,3 +68,19 @@ def add_user(first_name, last_name, email, password, connection):
         cursor.close()
     except Exception as e:
         print("Failed to enter in user", e)
+
+
+# obtain all files for a user
+def get_images(email, connection):
+    user_images = []
+    try:
+        stmt = "SELECT * FROM images WHERE email = '"+str(email)+"'"
+        cursor = connection.cursor()
+        cursor.execute(stmt)
+        results = cursor.fetchall()
+        results_list = list(results)
+        print(results_list[0][2])
+        cursor.close()
+    except Exception as e:
+        print("Error retrieving user images: ", e)
+    return user_images

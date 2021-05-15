@@ -7,8 +7,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{url_for('static', filename='pictures/logo.png')}}">
     <title>{% block title %}{% endblock %}</title>
     <script src="{{ url_for('static', filename='js/index.js')}}"></script>
+    {%block script%}{%endblock%}
     <style>
       #navigation-bar{
         margin: -0.4%;
