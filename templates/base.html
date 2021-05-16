@@ -8,8 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
     <link rel="icon" href="{{url_for('static', filename='pictures/logo.png')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>{% block title %}{% endblock %}</title>
-    <script src="{{ url_for('static', filename='js/index.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/index.js')}}"></script> 
     {%block script%}{%endblock%}
     <style>
       #navigation-bar{
@@ -41,6 +42,7 @@
         border: none;
         font-family: 'Open Sans';
         font-weight: bold;
+        text-decoration: none;
       }
 
       .nav-button:hover{
@@ -50,18 +52,57 @@
         cursor: pointer;
       }
 
-      #current-user-text{
-        border: none;
-        border-left: 0.15vw solid white;
-        font-size: 0.84vw;
-        letter-spacing: 0.07vw;
-        color: white;
-        background-color: rgba(168, 21, 21, 0);
-        font-family: 'Open Sans';
-        font-weight: bold;
-        text-align: right;
+      .dropdown{
+        overflow: hidden;
       }
 
+      .dropdown {
+        float: right;
+        overflow: hidden;
+        font-family: 'Open Sans';
+        font-size: 0.77vw;
+        letter-spacing: 0.05vw;
+        margin: -0.2% 0%;
+        font-weight: bold;
+      }
+
+      .dropdown .dropbtn {
+        font-size: 0.84vw;  
+        border: none;
+        outline: none;
+        color: white;
+        padding: 14px 16px;
+        background-color: inherit;
+        font-family: inherit;
+        margin: 0;
+        font-weight: bold;
+        letter-spacing: 0.04vw;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        z-index: 1;
+      }
+
+      .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 8.5% 25px;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+      }
+
+      .dropdown-content a:hover {
+        background-color: black;
+        color: white;
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
     </style>
     {% block style %}{% endblock %}
 </head>
@@ -69,24 +110,20 @@
     <div id="navigation-bar">
       <header>
         <nav id="navbar">
-          <button id="navigation-text" class="fake-button">Navigation</button>
-          <button id="home-button" class = "nav-button" onclick="home()">
-            Home
-          </button>
-          <button id="login-button" class="nav-button" onclick="login()">
-            Login
-          </button>
-          <button id="sign-up-button" class="nav-button" onclick = "signup()">
-            Sign Up
-          </button>
-          <!-- <div class="dropdown"> -->
-            <button id="current-user-text"class="fake-button">&nbsp;&nbsp;&nbsp;{{name}}</button>
-            <!-- <div id="drop-content">
-              <a href = "personalPage.html">Personal Home</a>
-              <a href = "sign-out">Sign Out</a>
-            </div> -->
-          <!-- </div> -->
-        </nav>  
+            <button id="navigation-text" class="fake-button">Navigation</button>
+          <a href="home" id="home-button" class = "nav-button">Home</a>
+          <a href="login" id="login-button" class="nav-button">Login</a>
+          <a href="sign-up" id="sign-up-button" class="nav-button">Sign Up</a>
+            <div class="dropdown">
+              <button class="dropbtn">
+                {{name}} &nbsp;<i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a href = "personal-page" class="drop-list">Personal Home</a>
+                <a href = "sign-out" class="drop-list">Sign Out</a>
+              </div>
+            </div>
+          </nav>  
       </header>
     </div>
     {% block content %}{% endblock %}

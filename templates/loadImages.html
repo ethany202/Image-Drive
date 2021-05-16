@@ -1,27 +1,62 @@
 {% extends "base.html" %}
 {% block title %}Stored Images | Image Drive{% endblock%}
 
+{%block script%}
+    <script>
+
+        let imagesArray = {{ imagesArray | tojson }};
+
+        function addImage(){
+
+            var parent = document.getElementById("images");
+            console.log(imagesArray.length)
+
+            if("{{boolean}}" == "True"){
+                if(imagesArray.length == 0 || imagesArray==null){
+                    var noImageMessage = document.createElement("div");
+                    parent.appendChild(noImageMessage);
+                    console.log("No Images");
+                }
+                else{
+
+                    // for loop
+                    var img = document.createElement("button");
+                    parent.appendChild(img);
+                    for(var i=0;i<imagesArray.length;i++){
+                        console.log(imagesArray[i][1]);
+                    }
+                }
+            }
+        }
+    </script>
+{%endblock%}
+
 {% block style%}
     <style>
         #top-section{
-            border-top: 0.15vw solid white;
+            border-bottom: 0.1vw solid black;
             text-align: center;
             margin: 0.4% -0.4%;
             font-size: 2.25vw;
             font-family: 'Open Sans';
             letter-spacing: 0.45vw;
-            background-color: rgba(6, 6, 73, 0.795);
-            color: white;
+            color: black;
             padding: 1.25%;
+        }
+
+        #images{
+            margin-top: -0.5%;
         }
     </style>
 {% endblock %}
 
 {% block content%}
+<body onload="addImage()">
     <div id = "top-section">
-        <h2>Stored Images</h2>
+        <h2>STORED IMAGES</h2>
     </div>
     <div id="images">
 
     </div>
+</body>
 {%endblock%}

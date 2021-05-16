@@ -24,7 +24,7 @@ def close_connection(connection):
 
 
 # check if user with email and password exist
-def check_records(email, password, connection):
+def check_records(email, connection):
     try:
         find_user = "SELECT * FROM users WHERE email IN ('" +str(email)+"')"
         cursor = connection.cursor()
@@ -49,8 +49,8 @@ def verify_credentials(email, password, connection):
         row_list = list(row)
         cursor.close()
         print(row_list)
-        if(len(row_list)!=0):
-            if(row_list[1]==password):
+        if len(row_list)!=0:
+            if row_list[1]==password:
                 return row_list
     except Exception as e:
         print("Error while retrieving user info", e)
@@ -79,7 +79,9 @@ def get_images(email, connection):
         cursor.execute(stmt)
         results = cursor.fetchall()
         results_list = list(results)
-        print(results_list[0][2])
+        print(results_list)
+        for record in results_list:
+            user_images.append(record)
         cursor.close()
     except Exception as e:
         print("Error retrieving user images: ", e)
