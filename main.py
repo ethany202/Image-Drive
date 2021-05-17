@@ -1,5 +1,8 @@
 from flask import Flask, redirect, url_for, render_template, request, session, g
 from datetime import timedelta
+from werkzeug.utils import secure_filename
+import werkzeug
+import os
 import retrieveData
 
 
@@ -11,6 +14,8 @@ def create_app():
 
 
 app = create_app()
+image_formats = [".jpg", ".png", ".gif", ".tiff"]
+
 
 
 @app.route('/home')
@@ -45,13 +50,11 @@ def loginPage():
         if conn != None:
             user_data = retrieveData.verify_credentials(email, password, conn)
             if len(user_data) == 0:
-                print("Incorrect credentials")
                 retrieveData.close_connection(conn)
-                return render_template("loginRedirect.html", name="Not Logged In", error="Error logging in: Username or password is invalid")
+                return render_template("loginRedirect.html", name="Not Logged In", error="Username or password is invalid")
             else:
                 session.permanent = True
                 session['user'] = request.form.get("email")
-                print("Logged In...")
                 retrieveData.close_connection(conn)
                 return redirect(url_for("redirectToPersonal", name=session['user']))
     return render_template("loginRedirect.html", name=current_user)
@@ -72,18 +75,19 @@ def signupPage():
         password = request.form.get("password")
         password_confirm = request.form.get("passwordConfirm")
         if password_confirm != password:
-            return render_template("signupRedirect.html", name=current_user, error="Error Signing Up: Please confirm your password")
+            return render_template("signupRedirect.html", name=current_user, error="Please confirm your password")
         conn = retrieveData.connect()
         if conn!=None:
             user_data = retrieveData.check_records(email, conn)
             if len(user_data) != 0:
                 print("This email already has an account")
                 retrieveData.close_connection(conn)  
-                return render_template("signupRedirect.html", name=current_user, error="Error Signing Up: This email already has an account associated with it")
+                return render_template("signupRedirect.html", name=current_user, error="This email already has an account associated with it")
             else:
                 session['user'] = email
                 session.permanent = True
                 print("New account has been made")
+                retrieveData.add_user(first_name, last_name, email, password, conn)
                 retrieveData.close_connection(conn)  
                 return redirect(url_for("redirectToPersonal", name=current_user))  
     return render_template("signupRedirect.html", name=current_user)
@@ -105,17 +109,35 @@ def loadImages():
         conn = retrieveData.connect()
         if conn!=None:
             user_records = retrieveData.get_images(session['user'], conn)
+            print(user_records)
             return render_template("loadImages.html", name=session['user'], boolean="True", imagesArray =user_records)
     return redirect(url_for("loginPage", name="Not Logged In"))
 
 
+
 @app.route("/upload-images", methods=["POST", "GET"])
 def uploadImages():
-    if g.user:
-        current_user = session['user']
-    else:
+    if g.user == None:
         return redirect(url_for("loginPage", name="Not Logged In"))
-    # if request.method == 'POST':
+    if request.method == 'POST':
+        image_title = request.form.get("imageTitle")
+        file = request.files['file']
+        is_image = False
+        print(file.filename)
+        for formats in image_formats:
+            if str(file.filename).find(formats) != -1:
+                is_image=True
+                break
+        if is_image:
+            conn = retrieveData.connect()
+            if conn!=None:
+                ref = "\static\personalImages\\"+str(file.filename)
+                retrieveData.add_images(image_title, ref, session['user'], conn)
+                save_image(file, ref)
+            else:
+                return render_template("uploadImages.html", name=session['user'], error="There was an error when uploading the image")
+        else:
+            return render_template("uploadImages.html", name=session['user'], error="Please upload an image file")
     return render_template("uploadImages.html", name=session['user'])
 
         
@@ -126,6 +148,13 @@ def before_request():
     if 'user' in session:
         g.user = session['user']
 
+
+def save_image(image, image_reference):
+    current_dir = os.path.dirname(__file__)
+    complete_path = current_dir+str(image_reference) 
+    if not os.path.exists(str(complete_path)):
+        image.save(complete_path)
+    
 
 
 if __name__ == "__main__":

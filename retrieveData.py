@@ -32,7 +32,7 @@ def check_records(email, connection):
         row = cursor.fetchone()
         row_list = list(row)
         cursor.close()
-        if(len(row_list)!=0):
+        if len(row_list)!=0:
             return row_list
     except Exception as e:
         print("Error while retrieving user info", e)
@@ -48,7 +48,6 @@ def verify_credentials(email, password, connection):
         row = cursor.fetchone()
         row_list = list(row)
         cursor.close()
-        print(row_list)
         if len(row_list)!=0:
             if row_list[1]==password:
                 return row_list
@@ -79,10 +78,25 @@ def get_images(email, connection):
         cursor.execute(stmt)
         results = cursor.fetchall()
         results_list = list(results)
-        print(results_list)
         for record in results_list:
             user_images.append(record)
         cursor.close()
     except Exception as e:
         print("Error retrieving user images: ", e)
     return user_images
+
+
+#add images to personal database
+def add_images(image_title, image_reference, email, connection):
+    try:
+        stmt = "INSERT INTO images VALUES (%s, %s, %s)"
+        val = (str(image_title), str(image_reference), email)
+        cursor = connection.cursor()
+        cursor.execute(stmt, val)
+        connection.commit()
+        cursor.close()
+        return True
+    except Exception as e:
+        print("error adding image:", e)
+    return False;
+    

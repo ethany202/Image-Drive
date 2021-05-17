@@ -14,7 +14,11 @@
             if("{{boolean}}" == "True"){
                 if(imagesArray.length == 0 || imagesArray==null){
                     var noImageMessage = document.createElement("div");
-                    parent.appendChild(noImageMessage);
+                    var noImageMessageDiv = document.getElementById("no-images-message")
+                    
+                    noImageMessage.innerText = "No Images On This Account";
+
+                    noImageMessageDiv.appendChild(noImageMessage);
                     console.log("No Images");
                 }
                 else{
@@ -28,6 +32,8 @@
                 }
             }
         }
+
+
     </script>
 {%endblock%}
 
@@ -36,7 +42,7 @@
         #top-section{
             border-bottom: 0.1vw solid black;
             text-align: center;
-            margin: 0.4% -0.4%;
+            margin: 0.75% -0.4%;
             font-size: 2.25vw;
             font-family: 'Open Sans';
             letter-spacing: 0.45vw;
@@ -44,8 +50,16 @@
             padding: 1.25%;
         }
 
+        #no-images-message{
+            margin-top: 6.5%;
+            text-align: center;
+            font-family: 'Kelly Slab';
+            font-size: 1.25vw;
+            letter-spacing: 0.05vw;
+        }
+
         #images{
-            margin-top: -0.5%;
+            margin-top:-0.5%;
         }
     </style>
 {% endblock %}
@@ -57,6 +71,9 @@
     </div>
     <div id="images">
 
+    </div>
+    <div id="no-images-message">
+        
     </div>
 </body>
 {%endblock%}

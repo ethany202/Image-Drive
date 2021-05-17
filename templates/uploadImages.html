@@ -15,6 +15,77 @@
             padding: 3.5%;
             font-weight: bold;
         }
+
+        #upload-image-div{
+            margin: 3%;
+            padding: 2%;
+            text-align: center;
+        }
+
+        .custom-file-upload {
+            border: 0.1vw solid #ccc;
+            display: inline-block;
+            padding: 0.75%;
+            cursor: pointer;
+            font-family: 'Kelly Slab';
+            font-weight: bold;
+            font-size: 1vw;
+            letter-spacing: 0.05vw;
+            margin-bottom: 0.75%;
+        }
+
+
+
+        #image-location{
+            display: none;
+        }
+
+        #upload{
+            padding: 0.87% 0.85%;
+            margin: 0.5%;
+            font-size: 0.85vw;
+            background-color: white;
+            border: 0.06vw solid dodgerblue;
+            color: dodgerblue;
+            font-family: 'Kelly Slab';
+            letter-spacing: 0.1vw;
+        }
+
+        #upload:hover{
+            background-color: dodgerblue;
+            color:white;
+            cursor: pointer;
+        }
+
+
+        #image-title{
+            text-align: center;
+            margin: 0.5%;
+            padding: 2%;
+            font-family: 'Open Sans';
+            font-size: 1.15vw;
+            padding: 0.35%;
+            font-size: 1vw;
+            margin: 1.25% 2.5%;
+            width: 15%;
+            border: 0.15vw solid rgba(168, 21, 21, 0.911);
+            box-sizing: border-box;
+        }        
+
+        ::placeholder{
+            font-family: 'Open Sans';
+        }
+
+        #error{
+            text-align: center;
+            font-family: 'Kelly Slab';
+            text-transform: uppercase;
+            letter-spacing: 0.12vw;
+            font-size: 0.8vw;
+            margin-top: -0.9%;
+            margin-bottom: 4%;
+            font-weight: bold;
+        }
     </style>
 {%endblock%}
 
@@ -22,4 +93,29 @@
     <div id="top-section">
         UPLOAD IMAGES
     </div>
+    <div id="upload-image-div">
+        <form id="image-form" method ="POST" enctype="multipart/form-data">
+            <label class="custom-file-upload">
+                <div id="label-text">
+                    <i class="fa fa-cloud-upload"></i>
+                    Select an Image
+                </div>
+                <input type="file" id="image-location" name="file" onchange="changeText(e)"/>
+            </label>
+            <br>
+            <input type="text" id="image-title" name="imageTitle" placeholder="Image Title">
+            <br>
+            <button id="upload"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+        </form>
+    </div>
+
+    <div id="error">{{error}}</div>
+
+    <script>
+        var label = document.getElementById("label-text");
+
+        function changeText(e){   
+            label.innerHTML="Image Added";
+        }
+    </script>
 {%endblock%}
