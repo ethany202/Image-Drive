@@ -7,10 +7,6 @@
         let imagesArray = {{ imagesArray | tojson }};
 
         function addImage(){
-
-            var parent = document.getElementById("images");
-            console.log(imagesArray.length)
-
             if("{{boolean}}" == "True"){
                 if(imagesArray.length == 0 || imagesArray==null){
                     var noImageMessage = document.createElement("div");
@@ -19,21 +15,34 @@
                     noImageMessage.innerText = "No Images On This Account";
 
                     noImageMessageDiv.appendChild(noImageMessage);
-                    console.log("No Images");
                 }
                 else{
+                    var parent = document.getElementById("images");
+                    for(var index = 0;index<imagesArray.length;index++){
+                        var img = document.createElement("button");                        
+                        relativeReference = imagesArray[index][1].replaceAll("\\", "/");
+                        console.log(relativeReference);
+                        console.log(imagesArray);
+                        img.style.backgroundImage = "url('"+relativeReference+"')";
 
-                    // for loop
-                    var img = document.createElement("button");
-                    parent.appendChild(img);
-                    for(var i=0;i<imagesArray.length;i++){
-                        console.log(imagesArray[i][1]);
-                    }
+                        var ratio = imagesArray[index][3]/imagesArray[index][4];
+                        var imageWidth = 15;
+
+                        if(imagesArray[index][3] < imagesArray[index][4]){
+                            img.style.width = "15vw";
+                            imageWidth = 15;
+                        }
+                        else{
+                            img.style.width = "24vw";
+                            imageWidth = 25;
+                        }
+
+                        img.style.height = (imageWidth/ratio)+"vw";
+                        parent.appendChild(img);
+                    }                   
                 }
             }
         }
-
-
     </script>
 {%endblock%}
 
@@ -60,6 +69,19 @@
 
         #images{
             margin-top:-0.5%;
+        }
+
+        #images button{
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            margin: 0.15%;
+            border: none;
+        }
+
+        #images button:hover{
+            opacity: 0.35;
+            
         }
     </style>
 {% endblock %}

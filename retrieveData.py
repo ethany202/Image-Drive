@@ -87,10 +87,10 @@ def get_images(email, connection):
 
 
 #add images to personal database
-def add_images(image_title, image_reference, email, connection):
+def add_images(image_title, image_reference, email, image_width, image_height, connection):
     try:
-        stmt = "INSERT INTO images VALUES (%s, %s, %s)"
-        val = (str(image_title), str(image_reference), email)
+        stmt = "INSERT INTO images VALUES (%s, %s, %s, %s, %s)"
+        val = (str(image_title), str(image_reference), email, image_width, image_height)
         cursor = connection.cursor()
         cursor.execute(stmt, val)
         connection.commit()

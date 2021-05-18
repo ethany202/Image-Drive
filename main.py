@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, request, session, g
 from datetime import timedelta
 from werkzeug.utils import secure_filename
-import werkzeug
+from PIL import Image
 import os
 import retrieveData
 
@@ -14,8 +14,8 @@ def create_app():
 
 
 app = create_app()
-image_formats = [".jpg", ".png", ".gif", ".tiff"]
-
+image_formats = [".jpg", ".jpeg", ".png", ".gif", ".tiff"]
+current_dir = os.path.dirname(__file__)
 
 
 @app.route('/home')
@@ -83,11 +83,10 @@ def signupPage():
                 print("This email already has an account")
                 retrieveData.close_connection(conn)  
                 return render_template("signupRedirect.html", name=current_user, error="This email already has an account associated with it")
-            else:
+            else:           
+                retrieveData.add_user(first_name, last_name, email, password, conn)
                 session['user'] = email
                 session.permanent = True
-                print("New account has been made")
-                retrieveData.add_user(first_name, last_name, email, password, conn)
                 retrieveData.close_connection(conn)  
                 return redirect(url_for("redirectToPersonal", name=current_user))  
     return render_template("signupRedirect.html", name=current_user)
@@ -131,9 +130,12 @@ def uploadImages():
         if is_image:
             conn = retrieveData.connect()
             if conn!=None:
-                ref = "\static\personalImages\\"+str(file.filename)
-                retrieveData.add_images(image_title, ref, session['user'], conn)
+                ref = rf"\static\personalImages\{session['user']}_{str(file.filename)}"
                 save_image(file, ref)
+                img = Image.open(current_dir+str(ref));
+                img_height = img.size[1]
+                img_width = img.size[0]
+                retrieveData.add_images(image_title, ref, session['user'], img_width, img_height, conn)
             else:
                 return render_template("uploadImages.html", name=session['user'], error="There was an error when uploading the image")
         else:
@@ -150,11 +152,10 @@ def before_request():
 
 
 def save_image(image, image_reference):
-    current_dir = os.path.dirname(__file__)
     complete_path = current_dir+str(image_reference) 
     if not os.path.exists(str(complete_path)):
         image.save(complete_path)
-    
+
 
 
 if __name__ == "__main__":
