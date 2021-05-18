@@ -6,24 +6,65 @@
     <style>
         #top-div{
             text-align: center;
-            margin: 5%;
-            font-size: 3.95vw;
+            margin: 5.75%;
+            font-size: 4vw;
             letter-spacing: 0.25vw;
-            font-family: 'Open Sans';
+            font-family: 'Kelly Slab';
             font-weight: bold;
-            transform: scaleY(1.05);
+            transform: scaleY(1.15);
             align-content: center;
-    }
+        }
+
+        #content-text{
+            text-align: center;    
+            margin: 8% 8% 0% 5%;
+            font-family: 'Kelly Slab';
+            font-size: 1.5vw;
+            letter-spacing: 0.075vw;
+            border-bottom: 0.09vw solid black;
+            padding-bottom: 2%;
+        }
+
+        #about-list{
+            font-family: 'Open Sans';
+            letter-spacing: 0.075vw;
+            padding: 2%;
+            margin-left: 5%;
+            font-size: 0.9vw;
+        }
+
+        #about-list li{
+            padding-bottom: 1%;
+        }
     </style>
+
+    
 {% endblock %}
 
 
 {% block content %}
     <div id="top-div">
-        IMAGE &nbspDRIVE
+        IMAGE DRIVE
         <section id="background">
         </section>
     </div>
 
+    <div id="content-text">
+        What Can You Do With Image Drive?
+    </div>
+
+    <div id="about-list">
+        <ul>
+            <li>With Image Drive, you can upload images to your personal account</li>
+            <li>Images saved on your account can be downloaded to your local computer</li>
+            <li>Image Drive is designed to be a cloud service that anyone may use to house images if their computer does not have enough storage</li>
+            <li>Accepted image formats include: .jpg, .gif, .jpeg, .tiff</li>
+            <li>Image drive is also completely free; to create account, you must sign up with a valid email</li>
+            <li>Side Note: Image Drive is a coding project done by Ethan Y.</li>
+        </ul> 
+    </div>
+
+        
+    
 
 {%endblock%}

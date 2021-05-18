@@ -2,6 +2,7 @@
 {% block title %}Stored Images | Image Drive{% endblock%}
 
 {%block script%}
+    <script type="text/javascript" src="{{url_for('static', filename='js/FileSaver.js')}}"></script>
     <script>
 
         let imagesArray = {{ imagesArray | tojson }};
@@ -38,11 +39,21 @@
                         }
 
                         img.style.height = (imageWidth/ratio)+"vw";
+
+                        img.onclick = function(){
+                            saveAs(relativeReference, getFileName(relativeReference));
+                        };
+
                         parent.appendChild(img);
                     }                   
                 }
             }
         }
+
+        function getFileName(path){
+            return path.substring(path.lastIndexOf("/")+1);
+        }
+
     </script>
 {%endblock%}
 
@@ -53,7 +64,7 @@
             text-align: center;
             margin: 0.75% -0.4%;
             font-size: 2.25vw;
-            font-family: 'Open Sans';
+            font-family: 'Kelly Slab';
             letter-spacing: 0.45vw;
             color: black;
             padding: 1.25%;
@@ -81,7 +92,7 @@
 
         #images button:hover{
             opacity: 0.35;
-            
+            cursor: pointer;
         }
     </style>
 {% endblock %}
