@@ -2,7 +2,6 @@
 {% block title %}Stored Images | Image Drive{% endblock%}
 
 {%block script%}
-    <script type="text/javascript" src="{{url_for('static', filename='js/FileSaver.js')}}"></script>
     <script>
 
         let imagesArray = {{ imagesArray | tojson }};
@@ -18,12 +17,15 @@
                     noImageMessageDiv.appendChild(noImageMessage);
                 }
                 else{
+
                     var parent = document.getElementById("images");
+
                     for(var index = 0;index<imagesArray.length;index++){
-                        var img = document.createElement("button");                        
+
+                        var img = document.createElement("a");     
+
                         relativeReference = imagesArray[index][1].replaceAll("\\", "/");
-                        console.log(relativeReference);
-                        console.log(imagesArray);
+
                         img.style.backgroundImage = "url('"+relativeReference+"')";
 
                         var ratio = imagesArray[index][3]/imagesArray[index][4];
@@ -40,9 +42,8 @@
 
                         img.style.height = (imageWidth/ratio)+"vw";
 
-                        img.onclick = function(){
-                            saveAs(relativeReference, getFileName(relativeReference));
-                        };
+                        img.href = relativeReference;
+                        img.download = imagesArray[index][0];
 
                         parent.appendChild(img);
                     }                   
@@ -82,17 +83,17 @@
             margin-top:-0.5%;
         }
 
-        #images button{
-            background-repeat: no-repeat;
-            background-position: center;
+        #images a{
+            display: inline-block;
             background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             margin: 0.15%;
             border: none;
         }
 
-        #images button:hover{
+        #images a:hover{
             opacity: 0.35;
-            cursor: pointer;
         }
     </style>
 {% endblock %}
