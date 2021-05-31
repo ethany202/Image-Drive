@@ -122,6 +122,14 @@
         let currentUser = '{{email}}';
         var userRef = storageRef.child(currentUser);
 
+
+        document.getElementById("upload").addEventListener("keyup", function(event){
+            event.preventDefault();
+            if(event.keyCode == 13){
+                uploadImage();
+            }
+        });
+
         function uploadImage(){
             console.log("Entered");
             var file = document.querySelector("#image-location").files[0];
