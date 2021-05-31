@@ -86,6 +86,11 @@
             margin-bottom: 4%;
             font-weight: bold;
         }
+
+        #hidden{
+            width:-1;
+            height:-1;
+        }
     </style>
 {%endblock%}
 
@@ -100,22 +105,30 @@
                     <i class="fa fa-cloud-upload"></i>
                     Select an Image
                 </div>
-                <input type="file" id="image-location" name="file" onchange="changeText(e)"/>
+                <input type="file" id="image-location" name="file"/>
             </label>
             <br>
             <input type="text" id="image-title" name="imageTitle" placeholder="Image Title">
             <br>
-            <button id="upload"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+            <button id="upload" onclick = "uploadImage()"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+            <br>
         </form>
     </div>
 
     <div id="error">{{error}}</div>
 
     <script>
-        var label = document.getElementById("label-text");
+        var storageRef = firebase.storage().ref();
+        let currentUser = '{{email}}';
+        var userRef = storageRef.child(currentUser);
 
-        function changeText(e){   
-            label.innerHTML="Image Added";
+        function uploadImage(){
+            console.log("Entered");
+            var file = document.querySelector("#image-location").files[0];
+            const task = userRef.child(file.name).put(file);
+            console.log(task);
         }
+
+        
     </script>
 {%endblock%}

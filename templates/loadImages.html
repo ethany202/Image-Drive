@@ -5,10 +5,13 @@
     <script>
 
         let imagesArray = {{ imagesArray | tojson }};
+        
 
         function addImage(){
+
+            console.log(imagesArray);
             if("{{boolean}}" == "True"){
-                if(imagesArray.length == 0 || imagesArray==null){
+                if(imagesArray==null || imagesArray.length == 0){
                     var noImageMessage = document.createElement("div");
                     var noImageMessageDiv = document.getElementById("no-images-message")
                     
@@ -17,42 +20,51 @@
                     noImageMessageDiv.appendChild(noImageMessage);
                 }
                 else{
-
-                    var parent = document.getElementById("images");
-
                     for(var index = 0;index<imagesArray.length;index++){
+                        console.log(imagesArray[index]);
+                        var storage = firebase.storage();
 
-                        var img = document.createElement("a");     
+                        var pathRef = storage.ref(imagesArray[index][2]+"/"+imagesArray[index][1]);
+                        var downloadURL = pathRef.getDownloadURL().then((url) => {
 
-                        relativeReference = imagesArray[index][1].replaceAll("\\", "/");
+                            var imgSize = [];
+                            var currentIMG = new Image();
+                            currentIMG.src = url;
+                            var widthHeightArr = currentIMG.addEventListener("load", imgSize = getImageSize(currentIMG));
+                            var img = document.createElement("a");     
 
-                        img.style.backgroundImage = "url('"+relativeReference+"')";
+                            img.style.backgroundImage = "url('"+url+"')";
 
-                        var ratio = imagesArray[index][3]/imagesArray[index][4];
-                        var imageWidth = 15;
+                            console.log(imgSize);
+                            if(imgSize[0] !=0 && imgSize[1] !=0){
 
-                        if(imagesArray[index][3] < imagesArray[index][4]){
-                            img.style.width = "15vw";
-                            imageWidth = 15;
-                        }
-                        else{
-                            img.style.width = "24vw";
-                            imageWidth = 25;
-                        }
+                                var ratio = imgSize[0]/imgSize[1];
+                                var imageWidth = 15;
 
-                        img.style.height = (imageWidth/ratio)+"vw";
+                                if(imgSize[0] < imgSize[1]){
+                                    img.style.width = "15vw";
+                                    imageWidth = 15;
+                                }
+                                else{
+                                    img.style.width = "25vw";
+                                    imageWidth = 25;
+                                }
 
-                        img.href = relativeReference;
-                        img.download = imagesArray[index][0];
+                                img.style.height = (imageWidth/ratio)+"vw";
+                                img.href = url;
+                                //img.download = "img";
 
-                        parent.appendChild(img);
-                    }                   
+                                var parent = document.getElementById("images");
+                                parent.appendChild(img);
+                            }
+                        })
+                    }    
                 }
             }
         }
 
-        function getFileName(path){
-            return path.substring(path.lastIndexOf("/")+1);
+        function getImageSize(img){
+            return [img.naturalWidth, img.naturalHeight];
         }
 
     </script>

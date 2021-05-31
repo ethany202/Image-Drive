@@ -122,6 +122,7 @@ def uploadImages():
         file = request.files['file']
         is_image = False
         print(file.filename)
+        print(file)
         for formats in image_formats:
             if str(file.filename).find(formats) != -1:
                 is_image=True
@@ -129,17 +130,18 @@ def uploadImages():
         if is_image:
             conn = retrieveData.connect()
             if conn!=None:
-                ref = rf"\static\personalImages\{session['user']}_{str(file.filename)}"
-                save_image(file, ref)
-                img = Image.open(current_dir+str(ref));
-                img_height = img.size[1]
-                img_width = img.size[0]
-                retrieveData.add_images(image_title, ref, session['user'], img_width, img_height, conn)
+                #ref = rf"\static\personalImages\{session['user']}_{str(file.filename)}"
+                ref = file.filename
+                #save_image(file, ref)
+                #img = Image.open(current_dir+str(ref));
+                #img_height = img.size[1]
+                #img_width = img.size[0]
+                retrieveData.add_images(image_title, ref, session['user'], conn)
             else:
-                return render_template("uploadImages.html", name=session['user'], error="There was an error when uploading the image")
+                return render_template("uploadImages.html", name=session['user'], error="There was an error when uploading the image", email=session['user'])
         else:
-            return render_template("uploadImages.html", name=session['user'], error="Please upload an image file")
-    return render_template("uploadImages.html", name=session['user'])
+            return render_template("uploadImages.html", name=session['user'], error="Please upload an image file", email = session['user'])
+    return render_template("uploadImages.html", name=session['user'], email = session['user'])
 
         
 
