@@ -1,7 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request, session, g
 from datetime import timedelta
 from werkzeug.utils import secure_filename
-from PIL import Image
 import os
 import retrieveData
 
@@ -130,12 +129,7 @@ def uploadImages():
         if is_image:
             conn = retrieveData.connect()
             if conn!=None:
-                #ref = rf"\static\personalImages\{session['user']}_{str(file.filename)}"
                 ref = file.filename
-                #save_image(file, ref)
-                #img = Image.open(current_dir+str(ref));
-                #img_height = img.size[1]
-                #img_width = img.size[0]
                 retrieveData.add_images(image_title, ref, session['user'], conn)
             else:
                 return render_template("uploadImages.html", name=session['user'], error="There was an error when uploading the image", email=session['user'])

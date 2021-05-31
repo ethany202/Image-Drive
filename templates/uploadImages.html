@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
 {%block title%} Upload Images {%endblock%}
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-app.js"></script>
 
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-storage.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
 {% block style%}
     <style>
         #top-section{
@@ -111,7 +118,6 @@
             <input type="text" id="image-title" name="imageTitle" placeholder="Image Title">
             <br>
             <button id="upload" onclick = "uploadImage()"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-            <br>
         </form>
     </div>
 
@@ -119,24 +125,17 @@
 
     <script>
         var storageRef = firebase.storage().ref();
-        let currentUser = '{{email}}';
-        var userRef = storageRef.child(currentUser);
-
-
-        document.addEventListener("keyup", function(event){
-            event.preventDefault();
-            if(event.keyCode == 13){
-                uploadImage();
-            }
-        });
+        var userRef = storageRef.child('{{email}}');  
 
         function uploadImage(){
-            console.log("Entered");
+            
+
             var file = document.querySelector("#image-location").files[0];
             const task = userRef.child(file.name).put(file);
-            console.log(task);
         }
 
-        
+        function check(){
+            console.log("Entered");
+        }
     </script>
 {%endblock%}
