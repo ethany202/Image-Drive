@@ -123,7 +123,7 @@
         var userRef = storageRef.child(currentUser);
 
 
-        document.getElementById("upload").addEventListener("keyup", function(event){
+        document.addEventListener("keyup", function(event){
             event.preventDefault();
             if(event.keyCode == 13){
                 uploadImage();
