@@ -127,6 +127,12 @@
         var storageRef = firebase.storage().ref();
         var userRef = storageRef.child('{{email}}');  
 
+        document.addEventListener('keyup', function(event){
+            event.preventDefault;
+            if(event.keyCode == 13){
+                uploadImage();
+            }
+        });
         function uploadImage(){
             
 
