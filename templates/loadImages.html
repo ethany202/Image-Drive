@@ -8,8 +8,6 @@
         
 
         function addImage(){
-
-            console.log(imagesArray);
             if("{{boolean}}" == "True"){
                 if(imagesArray==null || imagesArray.length == 0){
                     var noImageMessage = document.createElement("div");
@@ -30,7 +28,8 @@
                             var imgSize = [];
                             var currentIMG = new Image();
                             currentIMG.src = url;
-                            var widthHeightArr = currentIMG.addEventListener("load", imgSize = getImageSize(currentIMG));
+                            currentIMG.addEventListener("load", imgSize = getImageSize(currentIMG));
+
                             var img = document.createElement("a");     
 
                             img.style.backgroundImage = "url('"+url+"')";
@@ -52,7 +51,6 @@
 
                                 img.style.height = (imageWidth/ratio)+"vw";
                                 img.href = url;
-                                //img.download = "img";
 
                                 var parent = document.getElementById("images");
                                 parent.appendChild(img);
