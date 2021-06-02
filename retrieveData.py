@@ -98,5 +98,17 @@ def add_images(image_title, image_reference, email, connection):
         return True
     except Exception as e:
         print("error adding image:", e)
-    return False;
-    
+    return False
+
+
+# remove images
+def remove_images(image_title, image_ref, email, connection):
+    try:
+        stmt = "DELETE FROM images WHERE image_title = %s AND image_ref = %s AND email = %s"
+        val = (str(image_title), str(image_ref), str(email))    
+        cursor = connection.cursor()
+        cursor.execute(stmt, val)
+        connection.commit()
+        cursor.close()
+    except Exception as e:
+        print("Error removing query:", e)

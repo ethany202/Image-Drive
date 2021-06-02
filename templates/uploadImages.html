@@ -112,12 +112,12 @@
                     <i class="fa fa-cloud-upload"></i>
                     Select an Image
                 </div>
-                <input type="file" id="image-location" name="file"/>
+                <input type="file" id="image-location" name="file" onchange = "uploadImage()"/>
             </label>
             <br>
             <input type="text" id="image-title" name="imageTitle" placeholder="Image Title">
             <br>
-            <button id="upload" onclick = "uploadImage()"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+            <button id="upload"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
         </form>
     </div>
 
@@ -127,21 +127,10 @@
         var storageRef = firebase.storage().ref();
         var userRef = storageRef.child('{{email}}');  
 
-        document.addEventListener('keyup', function(event){
-            event.preventDefault;
-            if(event.keyCode == 13){
-                uploadImage();
-            }
-        });
-        function uploadImage(){
-            
-
+        async function uploadImage(){
             var file = document.querySelector("#image-location").files[0];
-            const task = userRef.child(file.name).put(file);
+            const task = await userRef.child(file.name).put(file);
         }
 
-        function check(){
-            console.log("Entered");
-        }
     </script>
 {%endblock%}
