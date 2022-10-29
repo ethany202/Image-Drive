@@ -1,10 +1,10 @@
 import mysql.connector
 
 # Database Info
-host = 'frwahxxknm9kwy6c.cbetxkdyhwsb.us-east-1.rds.amazonaws.com'
-database = 'wtqgvyiyb93cocs8'
-username = 'rw7p0k9xiegjz0sh'
-password = 'ixdqgdfr7cwqyxss'
+host = '(replace_with_host_name)'
+database = '(replace_with_database_name)'
+username = '(replace_with_username)'
+password = '(replace_with_password)'
 
 #initiate connection between python and MySQL
 def connect():
